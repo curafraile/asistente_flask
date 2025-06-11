@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Portal Docente</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1>Subir Archivos - Docente</h1>
+    <form action="{{ url_for('subir_docente') }}" method="post" enctype="multipart/form-data">
+        <label>Tipo:
+            <select name="tipo" required>
+                <option value="actividad">Actividad</option>
+                <option value="video">Video</option>
+            </select>
+        </label><br><br>
+        <label>Archivo: <input type="file" name="archivo" required></label><br><br>
+        <button type="submit">Subir</button>
+    </form>
+    <hr>
+    <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+</body>
+</html>

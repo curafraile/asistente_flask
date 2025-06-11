@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Portal del Estudiante - Prácticas Profesionalizantes I</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            color: #333;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #004a99;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        header h1 {
+            margin-bottom: 5px;
+            font-size: 2rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        main {
+            flex: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #004a99;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 6px;
+        }
+
+        ul {
+            list-style-type: none;
+            margin-bottom: 20px;
+        }
+
+        ul li {
+            background: #e7f0ff;
+            margin-bottom: 8px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        ul li:hover {
+            background: #c0dbff;
+        }
+
+        a {
+            text-decoration: none;
+            color: #004a99;
+            font-weight: 600;
+        }
+
+        a:hover {
+            color: #002d66;
+        }
+
+        form {
+            margin-top: 30px;
+            background: #eef6ff;
+            padding: 20px;
+            border-radius: 6px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #004a99;
+        }
+
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1.5px solid #007bff;
+            border-radius: 4px;
+            margin-top: 4px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        hr {
+            margin: 35px 0;
+            border: none;
+            border-top: 1.5px solid #ddd;
+        }
+
+        footer {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            main {
+                padding: 15px;
+                margin: 10px;
+            }
+            header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Prácticas Profesionalizantes I</h1>
+    <p>Tecnicatura en Automatización y Robótica - Populorum Progressio In.Te.La.</p>
+</header>
+
+<main>
+    <section>
+        <h2>Actividades</h2>
+        {% if actividades %}
+            <ul>
+            {% for act in actividades %}
+                <li><a href="{{ url_for('descargar', carpeta='actividades', nombre=act) }}">{{ act }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay actividades disponibles</p>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Videos</h2>
+        {% if videos %}
+            <ul>
+            {% for vid in videos %}
+                <li><a href="{{ url_for('descargar', carpeta='videos', nombre=vid) }}">{{ vid }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay videos disponibles</p>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Entregar Actividad</h2>
+        <form action="{{ url_for('subir_entrega') }}" method="post" enctype="multipart/form-data">
+            <label for="nombre">Nombre del alumno o grupo:</label>
+            <input type="text" name="nombre" id="nombre" required>
+
+            <label for="archivo">Archivo:</label>
+            <input type="file" name="archivo" id="archivo" required>
+
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+
+    <hr>
+
+    <p style="text-align:center;">
+        <a href="{{ url_for('docente') }}">Ingreso Docente</a>
+    </p>
+</main>
+
+<footer>
+    &copy; 2025 Populorum Progressio In.Te.La. - Tecnicatura en Automatización y Robótica
+</footer>
+
+</body>
+</html>
